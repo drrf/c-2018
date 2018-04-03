@@ -1,6 +1,6 @@
 /*
 	
-	demo.c -- Demo Explain()
+	my_str.c -- suffix()
 	
 	Copyright © 2018 Ron .F.
 	
@@ -20,24 +20,33 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 */
-
 #include <stdio.h>
+# include <string.h>
+#include "data.h"
 
-int main ()
-{
-	int x;
-	/*-------------------------------------------------------------------------*
-	 * DEMO COMMENT
-	 *-------------------------------------------------------------------------*/
-	printf("\nDEMO TEMPLATE\n");
-	printf("\n--------------------\n");
+int suffix(char str[SIZE], char ch){	
+	int i, len, suf = 0;
+	char copystr[SIZE];
 	
-	printf("\n enter 1 numbers\n");
-	scanf("%d",&x);
+	/* SAVE THE LENGTH OF THE STRING */
+	len = strlen(str); 
 	
-	printf("\n--------------------\n");
-	printf("\n the number is: %d \n", x);
+	printf("\n");
+
+	/* COUNT & DISPLAY THE SUFFIX IN THE STRING */
+	for (i = 0; str[i] != '\0'; ++i)
+	{
+		if (ch == str[i]){
+			++suf;
+			strncpy(copystr, str+i,len);
+			printf("\t%d. %s", suf,copystr);
+		}
+	}
+
+	printf("\n----------------------------------------\n");
+	printf("\tThe num of suffix is: %d \n", suf);
+	printf("----------------------------------------\n");
 	
-	return 0;
+	return suf;
 }
 
