@@ -1,42 +1,70 @@
 /*
-	
-	demo.c -- Demo Explain()
-	
-	Copyright © 2018 Ron .F.
-	
-	
-	This program is free software; you can redistribute it and/or
-	modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 2
-	of the License, or (at your option) any later version.
-	
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-	
-	You should have received a copy of the GNU General Public License
-	along with this program if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-*/
+ *          File: abc.c
+ *        Author: Ron F. <>
+ * Last Modified: April 5, 2018
+ *         Topic: Found sequence
+ * ----------------------------------------------------------------
+ */
 
 #include <stdio.h>
+#include "data.h"
 
-int main ()
-{
-	int x;
-	/*-------------------------------------------------------------------------*
-	 * DEMO COMMENT
-	 *-------------------------------------------------------------------------*/
-	printf("\nDEMO TEMPLATE\n");
-	printf("\n--------------------\n");
-	
-	printf("\n enter 1 numbers\n");
-	scanf("%d",&x);
-	
-	printf("\n--------------------\n");
-	printf("\n the number is: %d \n", x);
-	
-	return 0;
+enum status{OUT,IN,FOUND};
+
+void abc (char str[SIZE]) {
+	int state=OUT;
+	int i, start, end, count;
+
+	for (i = 0; str[i] != '\0'; ++i) {
+		switch (state) {
+			case OUT :
+				if (str[i]+1 == str[i+1]){
+					start = i+1;
+					++count;
+					state = IN;
+				} else {
+					count = 0;
+					start = 0;
+				}
+				break;
+			
+			case IN :
+				if (str[i]+1 == str[i+1]) {
+					++count;
+					if (count >= ABC)
+						state = FOUND;
+				} else { 
+					count = 0;
+					start = 0;
+					state = OUT;
+				}
+				break;
+
+			case FOUND :
+				str[start] = '-';
+				
+				/* FOUND THE END OF ABC SEQUENCE */
+				for(end=start+1; str[end]+1 == str[end+1]; ++end)
+				;
+					
+				str[start+1] = str[end];
+
+				/* FIX THE STRING */
+				for (i=start+HYPHEN; str[i] != '\0'; ++i) {
+					str[i] = str[end+1];
+					++end;
+				}
+
+				/* REPOSITION i TO THE FIXED STRING */
+				i = start+HYPHEN;
+
+				state = OUT;
+				break;
+		}
+		
+	}
+	printf("\n----------------------------------------\n");
+	printf("The sequneces in this string is: %s",str);
+	printf("----------------------------------------\n");
+
 }

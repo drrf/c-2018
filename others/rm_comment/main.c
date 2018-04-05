@@ -10,25 +10,23 @@
 
 enum status{OUT,IN_STRING,LEFT_SLASH,IN_COMMENT,RIGHT_STAR,IN_CPP_COM};
 
-int main(){
+int main() {
 	int c;
 	int state=OUT;
-	
-	printf("Start working on file...\n");
-	
-	while((c=getchar()!=EOF){
+
+	while((c=getchar()!=EOF)){
 		switch (state) {
-			case OUT:
+			case OUT :
 				if (c=='/')
 					state = LEFT_SLASH;
 				else {
 					putchar(c);
-					if(c=='\'")
+					if(c=='\"')
 						state=IN_STRING;
 				}
-			break;
+				break;
 			
-			case LEFT_SLASH:
+			case LEFT_SLASH :
 				if(c=='*')
 					state=IN_COMMENT;
 				else if(c=='/')
@@ -38,34 +36,36 @@ int main(){
 					putchar(c);
 					state=OUT;
 				}
-			break;
+				break;
 			
-			case IN_COMMENT:
+			case IN_COMMENT :
 				if(c=='*')
 					state=RIGHT_STAR;
 			break;
 			
-			case IN_CPP_COM:
+			case IN_CPP_COM :
 				if(c=='\n'){
 					state=OUT;
 					putchar('\n');
 				}
 			break;
 			
-			case RIGHT_STAR:
+			case RIGHT_STAR :
 				if(c=='/')
 					state=OUT;
 				else if(c!='*')
 					state=IN_COMMENT;
 			break;
 			
-			case IN_STRING:
-				if(c=='\'")
+			case IN_STRING :
+				if(c=='\"')
 					state=OUT;
 				putchar(c);
 			break;
 		}
 	}
 	
-	printf("The file is ready!\n");
+	printf("\nThe file is ready!\n");
+
+	return 0;
 }

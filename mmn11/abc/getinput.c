@@ -2,25 +2,21 @@
  *          File: getinput.c
  *        Author: Ron F. <>
  * Last Modified: April 5, 2018
- *         Topic: Found suffix
+ *         Topic: Found sequence
  * ----------------------------------------------------------------
  */
 
 #include <stdio.h>
 #include "data.h"
 
-int suffix(char[],char);
+void abc(char[]);
 
 void getinput(){
-	char ch;
 	char str[SIZE];
 	
-	printf("\t Enter a string (max %d char): ", SIZE);
+	printf("\n\t Enter a string (max %d char): ", SIZE);
 	fgets(str, SIZE, stdin); 
 
-	printf("\n\t Now, enter char suffix from: ");
-	ch = getchar();
-
-	/* START my_str FILE */
-	suffix(str,ch);
+	/* START abc FILE */
+	abc(str);
 }
