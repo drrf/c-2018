@@ -1,12 +1,12 @@
 /*
  *          File: my_str.c
  *        Author: Ron F. <>
- * Last Modified: April 5, 2018
+ * Last Modified: April 8, 2018
  *         Topic: Found sequence
  * ----------------------------------------------------------------
  */
 #include <stdio.h>
-# include <string.h>
+#include <string.h>
 #include "data.h"
 
 int suffix(char str[SIZE], char ch){	
@@ -23,7 +23,7 @@ int suffix(char str[SIZE], char ch){
 	{
 		if (ch == str[i]){
 			++suf;
-			strncpy(copystr, str+i,len);
+			strncpy(copystr, str+i,len+1); 
 			printf("\t%d. %s", suf,copystr);
 		}
 	}

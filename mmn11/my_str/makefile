@@ -1,4 +1,4 @@
-# comment demo
+# Last Modified: April 8, 2018
 
 myprog : main.o getinput.o my_str.o
 	gcc -g -ansi -Wall -pedantic main.o getinput.o my_str.o -o myprog

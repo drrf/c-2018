@@ -1,7 +1,7 @@
 /*
  *          File: abc.c
  *        Author: Ron F. <>
- * Last Modified: April 5, 2018
+ * Last Modified: April 8, 2018
  *         Topic: Found sequence
  * ----------------------------------------------------------------
  */
@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "data.h"
 
-enum status{OUT,IN,FOUND};
+int valid (int);
 
 void abc (char str[SIZE]) {
 	int state=OUT;
@@ -41,30 +41,34 @@ void abc (char str[SIZE]) {
 				break;
 
 			case FOUND :
-				str[start] = '-';
-				
-				/* FOUND THE END OF ABC SEQUENCE */
-				for(end=start+1; str[end]+1 == str[end+1]; ++end)
-				;
-					
-				str[start+1] = str[end];
+				/* START valid FILE -> CHECK VALID LETTER ONLY */
+				if (valid(str[start]) == OUT){
+				} else {
+					/* FOUND THE END OF ABC SEQUENCE */
+					for(end=start+1; str[end]+1 == str[end+1]; ++end)
+					;
 
-				/* FIX THE STRING */
-				for (i=start+HYPHEN; str[i] != '\0'; ++i) {
-					str[i] = str[end+1];
-					++end;
+					str[start] = '-';	
+					str[start+1] = str[end];
+
+					/* FIX THE STRING */
+					for (i=start+HYPHEN+1; str[i] != '\0'; ++i) {
+						str[i] = str[end+1];
+						++end;
+					}
+
+					/* REPOSITION i TO THE FIXED STRING */
+					i = start+HYPHEN;
 				}
-
-				/* REPOSITION i TO THE FIXED STRING */
-				i = start+HYPHEN;
 
 				state = OUT;
 				break;
-		}
+		} /* END OF SWITCH */
 		
 	}
+	/* OUTPUT PRINT */
 	printf("\n----------------------------------------\n");
-	printf("The sequneces in this string is: %s",str);
+	printf("The sequneces in this string fixed to: %s",str);
 	printf("----------------------------------------\n");
 
 }
