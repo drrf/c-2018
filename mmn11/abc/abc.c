@@ -7,6 +7,7 @@
  */
 
 #include <stdio.h>
+#include <ctype.h>
 #include "data.h"
 
 int valid (int);
@@ -18,7 +19,7 @@ void abc (char str[SIZE]) {
 	for (i = 0; str[i] != '\0'; ++i) {
 		switch (state) {
 			case OUT :
-				if (str[i]+1 == str[i+1]){
+				if (isalpha(str[i]) && str[i]+1 == str[i+1]){
 					start = i+1;
 					++count;
 					state = IN;
@@ -41,9 +42,6 @@ void abc (char str[SIZE]) {
 				break;
 
 			case FOUND :
-				/* START valid FILE -> CHECK VALID LETTER ONLY */
-				if (valid(str[start]) == OUT){
-				} else {
 					/* FOUND THE END OF ABC SEQUENCE */
 					for(end=start+1; str[end]+1 == str[end+1]; ++end)
 					;
@@ -59,7 +57,6 @@ void abc (char str[SIZE]) {
 
 					/* REPOSITION i TO THE FIXED STRING */
 					i = start+HYPHEN;
-				}
 
 				state = OUT;
 				break;
@@ -68,7 +65,7 @@ void abc (char str[SIZE]) {
 	}
 	/* OUTPUT PRINT */
 	printf("\n----------------------------------------\n");
-	printf("The sequneces in this string fixed to: %s",str);
+	printf("The sequences in this string fixed to: %s",str);
 	printf("----------------------------------------\n");
 
 }
