@@ -10,8 +10,6 @@
 #include <ctype.h>
 #include "data.h"
 
-int valid (int);
-
 void abc (char str[SIZE]) {
 	int state=OUT;
 	int i, start, end, count;
