@@ -1,18 +1,19 @@
 /*
  *          File: abc.c
  *        Author: Ron F. <>
- * Last Modified: April 8, 2018
+ * Last Modified: April 10, 2018
  *         Topic: Found sequence
  * ----------------------------------------------------------------
  */
 
 #include <stdio.h>
+#include <stddef.h>
 #include <ctype.h>
 #include "data.h"
 
 void abc (char str[SIZE]) {
 	int state=OUT;
-	int i, start, end, count;
+	size_t i, start, end, count;
 
 	for (i = 0; str[i] != '\0'; ++i) {
 		switch (state) {
