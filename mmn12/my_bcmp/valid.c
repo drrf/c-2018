@@ -58,7 +58,7 @@ if (size1 > len_str || size2 > len_str){
 }
 
 void valid_SIZE_4(int b1,int b2,int str_len,int len){
-	if (b1+len > str_len-1 || b2+len > str_len-1){
+	if (b1+len > str_len || b2+len > str_len){
 		printf("\n\t *b1 or *b2 OUT FROM THE INDEX IN THIS CHECK!\n");
 		exit(0);
 	}

@@ -1,7 +1,7 @@
 /*
  *          File: getinput.c
  *        Author: Ron F. <>
- * Last Modified: April 17, 2018
+ * Last Modified: April 25, 2018
  *         Topic: Comparing bytes of to pointer
  * ----------------------------------------------------------------
  */
@@ -19,9 +19,10 @@ void valid_SIZE(int s);
 void valid_SIZE_2(int s1,int s2);
 void valid_SIZE_3(int s1,int s2,int s3);
 void valid_SIZE_4(int s1,int s2,int s3,int s4);
+void printinput(int len,int b1,int b2, char s[]);
 int my_bcmp (const void *b1, const void *b2, size_t len);
 
-void getinput(){
+int getinput(){
 	char str[SIZE];
 	char *b1, *b2;
 	size_t len;
@@ -29,7 +30,7 @@ void getinput(){
 	char ch1[MAXCHAR];
 	char ch2[MAXCHAR];
 
-	printf("\n\t Enter the length to check: ");
+	printf("\n\t Enter the length of bytes to check: ");
 	scanf("%s", ch1);
 	valid_num(ch1);
 	len=atof(ch1);
@@ -59,16 +60,12 @@ void getinput(){
 	/* SET THE POINTER */
 	b1 = &str[bb1];
 	b2 = &str[bb2];
-	
-	/* PRINT TO OUTPUT */
-	printf("\n----------------------------------------");
-	printf("\nAll data were received successfully!!");
-	printf("\n----------------------------------------");
-	printf("\n\t-LEN = %lu\n\t-*B1 -> STR[%d]=%c\n\t-*B2 -> STR[%d]=%c\n\t-STR = %s",len,bb1,str[bb1],bb2,str[bb2],str);
-	printf("----------------------------------------\n");
+
+	/* START printinput FILE */
+	printinput(len,bb1,bb2,str);
 
 	/* START my_bcmp FILE */
-	my_bcmp(b1,b2,len); 
+	return my_bcmp(b1,b2,len); 
 }
 
 
