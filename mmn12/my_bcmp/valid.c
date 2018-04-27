@@ -1,40 +1,45 @@
+/*
+ *          File: valid.c
+ *        Author: Ron F. <>
+ * Last Modified: April 26, 2018
+ *         Topic: Comparing bytes from two pointers
+ * ----------------------------------------------------------------
+ */
+
 #include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
+#include <stdlib.h> /* for exit, atoi */
+#include <string.h> /* for strlen */
+#include <ctype.h>  /* for isdigit */
 #include "data.h"
 
-/* CLEAN SCANF */
 void clean_scanf(){
 	int ch;
 	while ((ch = getchar()) != '\n' && ch != EOF)
     	;
 }
 
-void valid_num(char c[]){
+int valid_num(char c[]){
 	int i;
 	int len=strlen(c);
 
 	if (c[0]=='-'){
-		printf("CANT BE NEG NUMBER!\n");
+		printf("\n\t ERROR: CAN'T ENTER NEGATIVE NUMBER!\n");
 		exit(0);
 	}
 
 	for (i=0; i<=len-1; i++){
 		if (!isdigit(c[i])){
-			printf("NOT VALID NUMBER!\n");
+			printf("\n\t ERROR: PLEASE ENTER ONLY A FULL DECIMAL NUMBER!\n");
 			exit(0);
 		}	
 	}
+
+	return atoi(c);
 }
 
 void valid_SIZE(int size){
 	if (size > SIZE){
-		printf("\n\t LEN CAN'T BE BIGGER THEN %d!\n", SIZE);
-		exit(0);
-	}
-	if (size < 0){
-		printf("\n\t LEN CAN'T BE SMALLER THEN 0!\n");
+		printf("\n\t ERROR: LEN CAN'T BE BIGGER THEN %d!\n", SIZE);
 		exit(0);
 	}
 }

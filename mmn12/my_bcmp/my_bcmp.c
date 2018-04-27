@@ -2,11 +2,11 @@
  *          File: main.c
  *        Author: Ron F. <>
  * Last Modified: April 25, 2018
- *         Topic: Comparing bytes of to pointer
+ *         Topic: Comparing bytes from two pointers
  * ----------------------------------------------------------------
  */
 #include <stdio.h>
-#include <stddef.h>
+#include <stddef.h> /* for size_t */
 
 int my_bcmp (const void *b1, const void *b2, size_t len){
 	int i = 0;
