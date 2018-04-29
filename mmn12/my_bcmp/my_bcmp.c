@@ -51,7 +51,7 @@ int valid_bcmp (size_t len,const void *b1,const void *b2)
 		printf("\n\t( NOTE: LEN 0 DEFAULT RETURN 0 )\n");
 		return 0;
 	}
-	
+
 	/* CHECK LEN NEGATIVE */
 	if ((int)len < 0){
 		printf("\n\t ERROR: LEN = %d CAN'T BE NEGATIVE!\n", (int)len);

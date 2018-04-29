@@ -12,6 +12,11 @@
 #include <ctype.h>  /* for isdigit */
 #include "data.h"
 
+void end_of_file(){
+	printf("\n\t ERROR: MISSING INPUT DATA (EOF)!! \n");
+	exit(0);
+}
+
 void clean_scanf(){
 	int ch;
 	while ((ch = getchar()) != '\n' && ch != EOF)
@@ -56,8 +61,8 @@ void valid_SIZE_2(int size1, int size2){
 }
 
 void valid_SIZE_3(int size1,int size2,int len_str){
-if (size1 > len_str || size2 > len_str){
-		printf("\n\t *b1 or *b2 INDEX CAN'T BE BIGGER FROM STR!\n");
+	if (size1 > len_str || size2 > len_str){
+		printf("\n\t *b1 or *b2 INDEX BIGGER FROM STR OR POINT ON NULL!\n");
 		exit(0);
 	}
 }

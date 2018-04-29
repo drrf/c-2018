@@ -13,6 +13,7 @@
 #define MAXCHAR 2
 
 void clean_scanf();
+void end_of_file();
 int valid_num(char[]);
 void valid_SIZE(int);
 void valid_SIZE_2(int,int);
@@ -29,15 +30,17 @@ int getinput(){
 	char ch2[MAXCHAR];
 
 	printf("\n\t Enter the length of bytes to check: ");
-	scanf("%s", ch1);
-
+	if (scanf("%s", ch1) == EOF)
+		end_of_file();
+		
 	/* START valid FILE */
 	len=valid_num(ch1);
 	clean_scanf();
 	valid_SIZE(len);
 
 	printf("\n\t Enter a b1 and b2 loc on the string: ");
-	scanf("%s%s", ch1,ch2);
+	if (scanf("%s%s", ch1,ch2) != 2)
+		end_of_file();
 
 	/* START valid FILE */
 	p1=valid_num(ch1);
@@ -46,7 +49,8 @@ int getinput(){
 	valid_SIZE_2(p1,p2);
 
 	printf("\n\t Enter a string (max %d char): ",SIZE);
-	fgets(str, SIZE, stdin);
+	if (fgets(str, SIZE, stdin) == EOF)
+		end_of_file();
 
 	/* START valid FILE */
 	valid_SIZE_3(p1,p2,strlen(str));
