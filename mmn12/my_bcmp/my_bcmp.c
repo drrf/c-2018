@@ -40,36 +40,35 @@ int valid_bcmp (size_t len,const void *b1,const void *b2)
 {
 	int strl1=strlen(b1),strl2=strlen(b2);
 
-
 	/* CHECK 0 STR */
 	if ((strl1 <= 0) || (strl1 <= 0)){
 		printf("\n\t( NOTE: STR NULL DEFAULT RETURN 0 )\n");
 		return 0;
-}
+	}
 
 	/* CHECK 0 LEN */
 	if (len == 0){
 		printf("\n\t( NOTE: LEN 0 DEFAULT RETURN 0 )\n");
 		return 0;
 	}
-	/* CHECK LEN NEG */
+	
+	/* CHECK LEN NEGATIVE */
 	if ((int)len < 0){
-		printf("\n\t ERROR: LEN = %d CAN'T BE NEG!\n", (int)len);
+		printf("\n\t ERROR: LEN = %d CAN'T BE NEGATIVE!\n", (int)len);
 		exit(0);
-}
+	}
 
 	/* CHECK LEN BIGGER FROM SIZE */
 	if (len > SIZE){
 		printf("\n\t ERROR: LEN CAN'T BE BIGGER THEN %d!\n", SIZE);
 		exit(0);
-}
+	}
 
 	/* CHECK LEN -> INDEX EXCEPTION */
 	if (len > strl1 || len > strl2){
 		printf("\n\tEXIT: LEN MAKE TO -> INDEX EXCEPTION\n");
 		exit(0);
-}
+	}
 
 return 1;
-
 }
