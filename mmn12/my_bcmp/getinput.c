@@ -1,7 +1,7 @@
 /*
  *          File: getinput.c
  *        Author: Ron F. <>
- * Last Modified: April 26, 2018
+ * Last Modified: April 29, 2018
  *         Topic: Comparing bytes from two pointers
  * ----------------------------------------------------------------
  */
@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stddef.h> /* for size_t */
 #include <string.h> /* for strlen */
-#include "data.h"
+#include "data.h"  /* for my_bcmp */
 #define MAXCHAR 2
 
 void clean_scanf();
@@ -19,7 +19,6 @@ void valid_SIZE_2(int,int);
 void valid_SIZE_3(int,int,int);
 void valid_SIZE_4(int,int,int,int);
 void printinput(int,int,int,char[]);
-int my_bcmp (const void *,const void *,size_t);
 
 int getinput(){
 	char str[SIZE];

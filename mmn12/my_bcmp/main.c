@@ -1,13 +1,14 @@
 /*
  *          File: main.c
  *        Author: Ron F. <>
- * Last Modified: April 26, 2018
+ * Last Modified: April 29, 2018
  *         Topic: Comparing bytes from two pointers
  * ----------------------------------------------------------------
  */
  
 #include <stdio.h>
 #include <stdlib.h>
+#include "data.h" /* for my_bcmp */
 
 /* THIS FUNC RETURN int TO TRANSFER ANSWER FROM my_bcmp */
 int getinput();

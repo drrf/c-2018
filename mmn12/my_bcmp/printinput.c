@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 #include <string.h> /* for strlen */
-#include "data.h"
 
 void printinput(long len,int b1,int b2, char s[]){
 

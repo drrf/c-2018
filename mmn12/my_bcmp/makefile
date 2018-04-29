@@ -1,7 +1,7 @@
 # Last Modified: April 25, 2018
 
-myprog : main.o getinput.o valid.o printinput.o my_bcmp.o
-	gcc -g -ansi -Wall -pedantic main.o getinput.o valid.o printinput.o my_bcmp.o -o myprog
+myprog : main.o getinput.o validinput.o printinput.o my_bcmp.o
+	gcc -g -ansi -Wall -pedantic main.o getinput.o validinput.o printinput.o my_bcmp.o -o myprog
 
 main.o : main.c data.h
 	gcc -c -Wall -ansi -pedantic main.c -o main.o
@@ -9,8 +9,8 @@ main.o : main.c data.h
 getinput.o : getinput.c data.h
 	gcc -c -Wall -ansi -pedantic getinput.c -o getinput.o
 
-valid.o : valid.c data.h
-	gcc -c -Wall -ansi -pedantic valid.c -o valid.o
+valid.o : validinput.c data.h
+	gcc -c -Wall -ansi -pedantic valid.c -o validinput.o
 
 printinput.o : printinput.c data.h
 	gcc -c -Wall -ansi -pedantic printinput.c -o printinput.o
