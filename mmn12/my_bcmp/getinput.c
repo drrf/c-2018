@@ -49,7 +49,7 @@ int getinput(){
 	valid_SIZE_2(p1,p2);
 
 	printf("\n\t Enter a string (max %d char): ",SIZE);
-	if (fgets(str, SIZE, stdin) == EOF)
+	if (fgets(str, SIZE, stdin) == '\0')
 		end_of_file();
 
 	/* START valid FILE */

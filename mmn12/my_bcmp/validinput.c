@@ -51,25 +51,25 @@ void valid_SIZE(int size){
 
 void valid_SIZE_2(int size1, int size2){
 	if (size1 > SIZE || size2 > SIZE){
-		printf("\n\t *b1 or *b2 CAN'T BE BIGGER THEN %d!\n", SIZE);
+		printf("\n\t ERROR: *b1 or *b2 CAN'T BE BIGGER THEN %d!\n", SIZE);
 		exit(0);
 	}
 	if (size1 < 0 || size2 < 0){
-		printf("\n\t *b1 or *b2 CAN'T BE SMALLER THEN 0!\n");
+		printf("\n\t ERROR: *b1 or *b2 CAN'T BE SMALLER THEN 0!\n");
 		exit(0);
 	}
 }
 
 void valid_SIZE_3(int size1,int size2,int len_str){
 	if (size1 > len_str || size2 > len_str){
-		printf("\n\t *b1 or *b2 INDEX BIGGER FROM STR OR POINT ON NULL!\n");
+		printf("\n\t ERROR: *b1 or *b2 INDEX BIGGER FROM STR OR POINT ON NULL!\n");
 		exit(0);
 	}
 }
 
 void valid_SIZE_4(int b1,int b2,int str_len,int len){
 	if (b1+len > str_len || b2+len > str_len){
-		printf("\n\t *b1 or *b2 OUT FROM THE INDEX IN THIS CHECK!\n");
+		printf("\n\t ERROR: *b1 or *b2 OUT FROM THE INDEX IN THIS CHECK!\n");
 		exit(0);
 	}
 }
