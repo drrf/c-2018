@@ -20,7 +20,7 @@ void print_set(set *s)
 {
 	set S = *s;
 	int i,first=0;
-	if ((int)S.n[0]==EMPTY){
+	if ((int)S.n[0]==BLOCK){
 		printf("\nThis set is empty\n");
 		return;
 	} else {
@@ -41,7 +41,7 @@ void read_set(set *s, int * nums)
 {
 	int copy, i;
 	/* REMOVE -1 BLOCK */
-	(*s).n[0] = '0';
+	reset_set_block(s);
 
 	for (i=0;i<=SIZE;i++){
 		copy = *(nums + i);
@@ -50,20 +50,50 @@ void read_set(set *s, int * nums)
 		else
 		(*s).n[copy] = (char)copy;
 	}
-
-	/* TESTING CODE
-	printf("sata = %p\n", &(*s));
-	print_set(s); */
 }
 
-/* SUB */ 
-void sub_set (set s1, set s2, set s3)
+void intersect_set (set *s1, set *s2, set *s3)
 {
-	printf("sub commend not ready yet\n");
+	int i;
+
+	for (i=0; i<SIZE; i++){
+		(*s3).n[i] = (*s1).n[i] & (*s2).n[i];
+	}
+
+	/* REMOVE -1 BLOCK */
+	reset_set_block(s3);
+}
+
+
+/* SUB */ 
+void sub_set (set *s1, set *s2, set *s3)
+{
+	int i;
+
+	for (i=0; i<SIZE; i++){
+		(*s3).n[i] = (*s1).n[i] ^ (*s2).n[i];
+	}
+
+	/* REMOVE -1 BLOCK */
+	reset_set_block(s3);
 }
 
 /* UNION */ 
-void union_set (set s1, set s2, set s3)
+void union_set (set *s1, set *s2, set *s3)
 {
-	printf("union commend not ready yet\n");
+	int i;
+
+	for (i=0; i<SIZE; i++){
+		(*s3).n[i] = (*s1).n[i] | (*s2).n[i];
+	}
+
+	/* REMOVE -1 BLOCK */
+	reset_set_block(s3);
+
+}
+
+/* RESET THE FIRST CELL FOR OPEN PRINT */
+void reset_set_block (set *s)
+{
+	(*s).n[0] = '0';
 }
