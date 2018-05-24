@@ -48,7 +48,7 @@ void intersect_set(set *,set *,set *);
 void sub_set(set *,set *,set *);
 void union_set(set *,set *,set *);
 void stop(void);
-void reset_set_block (set *s);
+void reset_set_block(set *,set *,set *);
 
 /* OTHER FUNC THE IMPORTANT */
 int space (char[]);
@@ -58,10 +58,7 @@ int check_line(char[],char[]);
 int check_sets(char[],int);
 int check_comma (char[]);
 int * read_check_nums(char[]);
-
 void pSet_cmd (int,int,...);
-
-void printset (char[]);
 void readset (char[]);
 
 /* ERR FUNC */
@@ -70,6 +67,7 @@ void cmd_comma_err(void);
 void set_err (void);
 void set_err_miss(void);
 void set_extra_err(void);
+void not_int (void);
 void num_err (int);
 void num_end_err (int);
 void stop_by_eof (void);

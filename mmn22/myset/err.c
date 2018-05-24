@@ -33,6 +33,12 @@ void set_err_miss ()
 printf(ERR "\nERROR: " RST "Missing parameter\n" );
 }
 
+void num_end_err (int e)
+{
+if (e == END)
+	printf(ERR "\nERROR: " RST "List of set members is not terminated correctly\n" );
+}
+
 void num_err (int e)
 {
 if (e == BLOCK)
@@ -43,10 +49,9 @@ if (e > SIZE)
 
 }
 
-void num_end_err (int e)
+void not_int ()
 {
-if (e == END)
-	printf(ERR "\nERROR: " RST "List of set members is not terminated correctly\n" );
+	printf(ERR "\nERROR: " RST "Invalid set member - not an integer\n" );
 }
 
 
@@ -61,6 +66,6 @@ void comma_err (int c)
 	if (c > 1)
 	printf(ERR "\nERROR: " RST "Multiple consecutive commas\n" );
 
-	if (c == 0)
+	if (c <= 0)
 	printf(ERR "\nERROR: " RST "Missing comma\n" );
 }

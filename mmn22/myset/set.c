@@ -41,7 +41,7 @@ void read_set(set *s, int * nums)
 {
 	int copy, i;
 	/* REMOVE -1 BLOCK */
-	reset_set_block(s);
+	(*s).n[0] = '0';
 
 	for (i=0;i<=SIZE;i++){
 		copy = *(nums + i);
@@ -61,7 +61,7 @@ void intersect_set (set *s1, set *s2, set *s3)
 	}
 
 	/* REMOVE -1 BLOCK */
-	reset_set_block(s3);
+	reset_set_block(s1,s2,s3);
 }
 
 
@@ -75,7 +75,7 @@ void sub_set (set *s1, set *s2, set *s3)
 	}
 
 	/* REMOVE -1 BLOCK */
-	reset_set_block(s3);
+	reset_set_block(s1,s2,s3);
 }
 
 /* UNION */ 
@@ -88,12 +88,13 @@ void union_set (set *s1, set *s2, set *s3)
 	}
 
 	/* REMOVE -1 BLOCK */
-	reset_set_block(s3);
+	reset_set_block(s1,s2,s3);
 
 }
 
 /* RESET THE FIRST CELL FOR OPEN PRINT */
-void reset_set_block (set *s)
+void reset_set_block (set *s1, set *s2, set *s3)
 {
-	(*s).n[0] = '0';
+	if ((*s1).n[0]!=BLOCK || (*s2).n[0]!=BLOCK)
+		(*s3).n[0] = '0';
 }

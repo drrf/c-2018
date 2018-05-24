@@ -129,14 +129,15 @@ int check_sets (char str[], int t)
 		if (save_t == READ_SET){
 			i++;
 			comma = check_comma(str+i);
-			if (comma != 1)
+			if (comma != 1){
 				return 0;
-			else
+			} else {
+				readset(str+i);
 				return count;
+			}
 		}
 		i++;
 		if (str[i] != 0 ){
-			printf("err: C = %d\n", str[i]);
 			set_extra_err();
 			return 0;
 		}
@@ -174,45 +175,63 @@ int check_comma (char str[])
 
 int * read_check_nums (char str[])
 {
-	static int nums[SIZE];
-	int total_n = 0;
-	int n;
-	int i;
-	int index = 0;
+	static int nums[SIZE+1];
+	int i=0, n=0, total_n = 0, comma = 0, check;
 	int len = strlen(str);
 	int end = len;
 
 	/* RESET nums BEFORE ENTER NUMBERS */
 	memset(nums,0,sizeof(int)*SIZE);
 
-	printf("str = %s\n", str);
 	while (isspace(str[--end]))
 		;
 
-	printf("str = %c\n", str[end]);
-	printf("str = %c\n", str[end-1]);
-
-	if (str[end]!='1' || str[end-1]!='-'){
+	/* FIRST CHECK: END -1 */
+	if (str[end]!='1' || str[--end]!='-'){
 		num_end_err (END);
 		nums[0]=BLOCK;
 		return nums;
 	}
 
-	while (1 == sscanf(str + total_n, "%*[^0123456789]%d%n", &i, &n))
+	while (len--)
 	{
-		if (i > SIZE)
-		{
-		num_err(i);
-		nums[0]=BLOCK;
-		break;
+		if (i < end){
+			if (str[i] == ',')
+				comma++;
+
+			if (isdigit(str[i])){
+				total_n++;
+				n=atoi(str+i);
+				nums[n] = n;
+				if (n>99)
+					i = i+1;
+				if (n>10)
+					i++;
+			}
+
+			if (str[i] == '-' || n >= SIZE){
+				num_err (SIZE + 1);
+				nums[0]=BLOCK;
+				return nums;
+			}
+	
+			if (!isdigit(str[i]) && str[i] != ',' && str [i] != ' '){
+					not_int ();
+					nums[0]=BLOCK;
+					return nums;
+			}
+			i++;
 		}
-    	total_n += n;
-		nums[index] = i;
-		index++;
+	} /* END OF WHILE */
+
+	check = comma-total_n;
+	if (check > 1 || check <= 0){
+		comma_err(check);
+		nums[0]=BLOCK;
+		return nums;
 	}
 
-	nums[SIZE-1]=-1; 
-
+	/* END OF ARRAY */
+	nums[SIZE]=-1; 
 return nums;
 }
-

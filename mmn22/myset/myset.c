@@ -74,7 +74,6 @@ printf("i=%d,c=%c", i,c); */
 if (!strcmp(str, stop_s))
 	stop();
 
-
 switch(c) {
       case 'i' :
 	if ((i = check_line(str+i,inter_s)) > 0){
@@ -91,7 +90,7 @@ switch(c) {
       case 'r' :
 	if ((i = check_line(str+i,read_s)) > 0){
 	  if(check_sets(str+i,READ_SET) == 1)
-		readset(str);
+		; /* read_set(pSet[0],nums); */
 	}
          break;
       case 's' :
@@ -110,18 +109,6 @@ switch(c) {
 	 cmd_err();
    } /* END OF SWITCH */
 
-
-}
-
-void printset (char str[])
-{
-	int count_set = check_sets(str,1);
-	
-	if (count_set == 1){
-		print_set(pSet[0]);
-	} else {
-		set_err();
-	}
 }
 
 void readset (char str[])
