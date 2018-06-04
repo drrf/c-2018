@@ -1,44 +1,45 @@
 /*
  *          File: myset.h
  *        Author: Ron F. <>
- * Last Modified: May 23, 2018
- *         Topic: ???
+ * Last Modified: June 04, 2018
+ *         Topic: Read commands from input & save and use data
  * ----------------------------------------------------------------
  */
 
 #include "set.h"
 
-/* CREATE THE DATA */
+/* CREATE THE SET DATA */
 set SETA, SETB, SETC, SETD, SETE, SETF;
 
-/* POINTER TO SET 
-void *pSet; */
 
-void *pSet[PSET];
+/* LINE & LINE POINTER */
+char str [LINE];
+char * strP;
 
 int main () {
-char str [LINE];
-char * str2;
 /* EMPTY SETS SETTING */
-	SETA.n[0] = BLOCK;
-	SETB.n[0] = BLOCK;
-	SETC.n[0] = BLOCK;
-	SETD.n[0] = BLOCK;
-	SETE.n[0] = BLOCK;
-	SETF.n[0] = BLOCK;
+SETA.n[0] = '\0';
+SETB.n[0] = '\0';
+SETC.n[0] = '\0';
+SETD.n[0] = '\0';
+SETE.n[0] = '\0';
+SETF.n[0] = '\0';
 
 FOREVER {
 	printf("> ");
-	while(!fgets(str, LINE, stdin))
-		stop_by_eof();
-	printf("%s", str);
-	str2 = remove_2_white(str);
-	/* printf("> %s \n",str2);*/
-	command(str2);
+	while( !fgets (str, LINE, stdin) )
+		stop_by_eof(); /* STOP IF EOF */
 
-	/* FREE STR2 FROM remove_2_white */
-	free(str2); 
+	/* PRINT TO SCREEN */
+	printf("%s", str);
+
+	/* REMOVE DOUBLE WHITE */
+	strP = remove_2_white(str);
+
+	command(strP);
+
 	} /* FOREVER END */
+
 return 0;
 }
 
@@ -46,10 +47,9 @@ return 0;
 void command(char str [LINE])
 {
 
-/* REMOVE WHITE BLANK */
+/* REMOVE WHITE BLANK & ENTER THE FIRST LETTER */
 int i = space(str);
 char c = str[i];
-
 
 /* NEXT: MAKE POINTER TO ARRAY STRING */
 char abc[ROW][COL] = {
@@ -67,65 +67,49 @@ char *stop_s    = abc[3];
 char *sub_s     = abc[4];
 char *uni_s     = abc[5];
 
-/* printf("STR = %s\n", str); 
-printf("i=%d,c=%c", i,c); */
-
-
+/* CMD STOP */
 if (!strcmp(str, stop_s))
 	stop();
 
+/* SWITCH BETWEEN THE CMD */
 switch(c) {
       case 'i' :
 	if ((i = check_line(str+i,inter_s)) > 0){
-	  if(check_sets(str+i,3) == 3)
+	  if(check_sets(str+i,THREE) == THREE)
           	intersect_set(pSet[0],pSet[1],pSet[2]);
 	  }
          break;
       case 'p' :
 	 if ((i = check_line(str+i,print_s)) > 0){
-	   if(check_sets(str+i,1) == 1)
+	   if(check_sets(str+i,ONE) == ONE)
 	   	print_set(pSet[0]);
 	   }
          break;
       case 'r' :
 	if ((i = check_line(str+i,read_s)) > 0){
-	  if(check_sets(str+i,READ_SET) == 1)
-		; /* read_set(pSet[0],nums); */
+	  if(check_sets(str+i,READ_SET) == ONE);
 	}
          break;
       case 's' :
 	if ((i = check_line(str+i,sub_s)) > 0){
-	  if(check_sets(str+i,3) == 3)
+	  if(check_sets(str+i,THREE) == THREE)
           	sub_set(pSet[0],pSet[1],pSet[2]);
 	  }
          break;
       case 'u' :
 	 if ((i = check_line(str+i,uni_s)) > 0){
-	  if(check_sets(str+i,3) == 3)
+	  if(check_sets(str+i,THREE) == THREE)
           	union_set(pSet[0],pSet[1],pSet[2]);
 	  }
          break;
       default :
 	 cmd_err();
    } /* END OF SWITCH */
-
-}
-
-void readset (char str[])
-{
-	int * nums;
-
-	/* RETUEN ARRAY OF NUMBERS */
-	nums = read_check_nums(str);
-
-	if (nums[0]!=BLOCK)
-        	read_set(pSet[0],nums);
 }
 
 /* MOVE THE POINTER TO SET */
-void pSet_cmd (int set,int i,...)
+void pSet_cmd (int set,int i)
 {
-/* HOW TO ADD MORE POINTER SET ON THIS FUNC? */
 switch(set) {
       case 1 :
 	pSet[i] = &SETA;

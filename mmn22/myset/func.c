@@ -1,37 +1,40 @@
 /*
  *          File: set.h
  *        Author: Ron F. <>
- * Last Modified: May 23, 2018
- *         Topic: ???
+ * Last Modified: June 04, 2018
+ *         Topic: Read commands from input & save and use data
  * ----------------------------------------------------------------
  */
 
 #include "set.h"
 
-/* REMOVE WHITE SPACE */
+#define A_SET 65      /* THE SMALL SET */
+#define F_SET 70      /* THE BIG SET */
+#define SET_TO_NUM 64   /* FIX SET TO THE RIGHT NUMBER */
+
+/* FIX STRING REMOVE ALL DOUBLE OR MORE SPACES */
 char * remove_2_white (char str1[])
 {
-int i=0,j=0,len=strlen(str1);
-char * str2 = malloc(sizeof(char));
+	int i=0,j=0,len=strlen(str1);
+	char * str2 = malloc(sizeof(char));
 
-while(len--)
-{
-if (!isspace(str1[i])) {
-		str2[j++] = str1[i];
-}
-else if (str2[j-1]!=' ') {
-	str2[j++] = ' ';
-} else
-	;
+	while(len--)
+	{
+		if (!isspace(str1[i])) {
+			str2[j++] = str1[i];
+		}
+		else if (str2[j-1]!=' ') {
+			str2[j++] = ' ';
+		} else
+			;
+	i++;
+	}
 
-i++;
-}
-str2[--j]='\0';
-/*printf("str2 = %s", str2);*/
+	str2[--j]='\0';
 return str2;
 }
 
-/* SKIP ON WHITE SPACE */
+/* SKIP & RETURN THE IND WIHTOUT SPACE */
 int space (char str [])
 {
 int i = 0;
@@ -60,27 +63,25 @@ if (str1[i] == ',' || str1[i+1] == ','){
 	return 0;
 }
 
-/* IF TRUE RETURN INDEX TO END OF CMD, OR RETURN 0 */
+/* IF VALID RETURN INDEX TO END OF CMD */
 if (str1[i] == ' ' || str1[i] == '\0' || str1[i] == '\n'){
 		return i;
 	} else {
 		cmd_err();
 		return 0;
 	}
-
 }
 
 /* RETURN INT WITH THE NUMBERS OF SETS */
 int check_sets (char str[], int t)
 {
-	/* printf("STR = %s, C = %c\n", str+i, str[i]); */
 	/* REMOVE WHITE BLANK */
 	int i=space(str),j=0,save_t=t;
 	int count=0,comma=0,len,set_p,ind_p=0;
 	char cpy[3]= {"SET"};
 	len = strlen(str);
 
-	/* FIX T WITH save_t */
+	/* CHECK IF save_t IS read_set CMD */
 	if (save_t == READ_SET)
 		t=1;
 
@@ -96,12 +97,12 @@ int check_sets (char str[], int t)
 		;
 	i--;j--;
 	/* CHECK str[i] IS LAST LATTER OF SET NAME */
-	if (j!=3 || str[i] < A_SET || str[i] > Z_SET){
+	if (j!=3 || str[i] < A_SET || str[i] > F_SET){
 		set_err();
 		return 0;
 	} else {
 	   count++;
-	   set_p = str[i]-A_TO_NUM;
+	   set_p = str[i]-SET_TO_NUM;
 	   pSet_cmd(set_p,ind_p++);
 	   j = 0; /* RESET J TO NEXT TIME */
 	}
@@ -173,6 +174,7 @@ int check_comma (char str[])
 	return comma;
 }
 
+/* WRITE NUMBERS IN LINE TO ARRAY */
 int * read_check_nums (char str[])
 {
 	static int nums[SIZE+1];
@@ -186,13 +188,14 @@ int * read_check_nums (char str[])
 	while (isspace(str[--end]))
 		;
 
-	/* FIRST CHECK: END -1 */
+	/* FIRST CHECK: END OF -1 */
 	if (str[end]!='1' || str[--end]!='-'){
-		num_end_err (END);
+		num_end_err();
 		nums[0]=BLOCK;
 		return nums;
 	}
 
+	/* START FOUND NUMBERS */
 	while (len--)
 	{
 		if (i < end){
@@ -224,6 +227,7 @@ int * read_check_nums (char str[])
 		}
 	} /* END OF WHILE */
 
+	/* CHECK FOR COMMA ERR */
 	check = comma-total_n;
 	if (check > 1 || check <= 0){
 		comma_err(check);
@@ -231,7 +235,24 @@ int * read_check_nums (char str[])
 		return nums;
 	}
 
+	/* IF COMMA == 1 IT'S MEAN THERE IS ONLY -1 IN STR */
+	if (comma == 1){
+		nums[0]=BLOCK;
+		return nums;
+	}
+	
 	/* END OF ARRAY */
 	nums[SIZE]=-1; 
 return nums;
+}
+
+void readset (char str[])
+{
+	int * nums;
+
+	/* RETUEN ARRAY OF NUMBERS */
+	nums = read_check_nums(str);
+
+	if (nums[0]!=BLOCK)
+        	read_set(pSet[0],nums);
 }
