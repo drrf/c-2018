@@ -44,6 +44,7 @@ if (argc == ARGE){		/* IF argc IS THE SOME AS EXPECT */
 				if (readF(FileC,PermutN) == 0) /* START FOUND PERMUTATION */
 					printf("FOUND: 0 PERMUT IN THE FILE!\n");
 				fclose(fp);
+				free(FileC);
 		}
 	}
 } else {
